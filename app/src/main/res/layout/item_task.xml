@@ -15,7 +15,8 @@
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="Passear com o cachorro" />
+        tools:text="Título da tarefa"
+        android:textAllCaps="true"/>
 
     <TextView
         android:id="@+id/tv_date"
@@ -27,6 +28,18 @@
         app:layout_constraintTop_toBottomOf="@id/tv_title"
         tools:text="01/01/2021 18:00" />
 
+    <TextView
+        android:id="@+id/tv_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="@id/tv_date"
+        app:layout_constraintTop_toBottomOf="@id/tv_date"
+        tools:text="Descrição da tarefa"
+        android:textAllCaps="false"/>
+
+    <!-- Image com o menu de contexto para editar ou deletar tarefa -->
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/iv_more"
         android:layout_width="36dp"

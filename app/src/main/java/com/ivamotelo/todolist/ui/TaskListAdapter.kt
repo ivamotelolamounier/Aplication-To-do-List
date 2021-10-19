@@ -12,6 +12,10 @@ import com.ivamotelo.todolist.model.Task
 
 class TaskListAdapter : ListAdapter<Task, TaskListAdapter.TaskViewHolder>(DiffCallBack()) {
 
+    /**
+     * Variáveis globais para o evento onClickListener do menu suspenso da lista
+     * (Editar ou Deletar), através de LAMBDAS
+     */
     var listenerEdit : (Task) -> Unit = {}
     var listenerDelete : (Task) -> Unit = {}
 
@@ -25,26 +29,40 @@ class TaskListAdapter : ListAdapter<Task, TaskListAdapter.TaskViewHolder>(DiffCa
         holder.bind(getItem(position))
     }
 
+    /**
+     * uso da inner class para que seja possível acessar os atributos da classe principal
+     */
     inner class TaskViewHolder(
         private val binding: ItemTaskBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        /**
+         * Função que mostra a tarefa selecionda para edição ou deleção, quando
+         * clicado o 'menu de contexto' ivMore de cada item da lista de itens
+         */
         fun bind(item: Task) {
             binding.tvTitle.text = item.title
             binding.tvDate.text = "${item.date} ${item.hour}"
+            binding.tvDescription.text = item.description
             binding.ivMore.setOnClickListener {
                 showPopup(item)
             }
         }
 
+        /**
+         * Função para exibir um menu popup referente as opções de 'Editar' ou 'Deletar'
+         * a tarefa que está sem foco, atraveś do popUpMenu.show(), inflando o popUpMenu,
+         * que por sua vez possui o método setOnClickListener para capturar o clique do
+         * usuário (Editar ou Deletar)
+         */
         private fun showPopup(item: Task) {
             val ivMore = binding.ivMore
             val popUpMenu = PopupMenu(ivMore.context, ivMore)
             popUpMenu.menuInflater.inflate(R.menu.popup_menu, popUpMenu.menu)
             popUpMenu.setOnMenuItemClickListener {
                 when (it.itemId) {
-                    R.id.action_edit -> listenerEdit(item)
-                    R.id.action_delete -> listenerDelete(item)
+                    R.id.action_edit -> listenerEdit(item) // recebe o parâmetro invocado no popup
+                    R.id.action_delete -> listenerDelete(item) // recebe o parâmetro invocado no popup
                 }
                 return@setOnMenuItemClickListener true
             }

@@ -7,6 +7,11 @@ object TaskDataSource {
 
     fun getList() = list.toList()
 
+    /**
+     * Se for uma nova tarefa, apena adiciona a mesma Add(Copy...)
+     * se for uma edição, remove a tarefa editda e cria uma nova  id reeditada
+     * (remove o id (task) em seguida add o id (task)
+     */
     fun insertTask(task: Task) {
         if (task.id == 0) {
             list.add(task.copy(id = list.size + 1))

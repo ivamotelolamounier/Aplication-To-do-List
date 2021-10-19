@@ -38,11 +38,11 @@
         app:layout_constraintStart_toStartOf="@id/guide_start"
         app:layout_constraintTop_toBottomOf="@id/tool_bar">
 
+        <!-- uppercase com "textCapCharacters" -->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="text"
-            android:textAllCaps="true"/>
+            android:inputType="textCapCharacters"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,10 +97,13 @@
         app:layout_constraintStart_toStartOf="@id/guide_start"
         app:layout_constraintTop_toBottomOf="@id/til_date">
 
+        <!-- Texto justificado com layout_gravity-->
+        <!-- Quebra de linha com inputType -->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:inputType="text" />
+            android:inputType="textMultiLine"
+            android:layout_gravity="center_vertical|end"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

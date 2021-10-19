@@ -17,10 +17,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!-- recurso para inclui o layout 'empty_state.xml' com o gato ocioso -->
     <include
         android:id="@+id/include_empty"
         layout="@layout/empty_state" />
 
+    <!-- lista as tarefas cadastradas -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_tasks"
         android:layout_width="match_parent"

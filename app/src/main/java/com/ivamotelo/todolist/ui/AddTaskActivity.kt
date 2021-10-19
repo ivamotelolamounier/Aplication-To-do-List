@@ -2,7 +2,10 @@
  * -> forma convencional pela -> forma por padronização na classe extensions.kt
  * que substituiu 'editText?.setText(Date(it).format())' por 'text'
  * Tamém é necessário a criação das val 'timezone' e 'offSet' para capturar
- * a data atual corretamente
+ * a data atual corretamente.
+ * Faz o tratamento da hora e minuto para acrescentar '0' se a hora e o minuto estiver
+ * com uma casa decimal (entre 0 e 9) horas ou minutos, através val 'hours' e val 'minute'
+ * subsitituindo o timepicker pelas variáveis tratadas
  */
 package com.ivamotelo.todolist.ui
 
@@ -36,6 +39,7 @@ class AddTaskActivity : AppCompatActivity() {
                 binding.tilTitle.text = it.title
                 binding.tilDate.text = it.date
                 binding.tilHour.text = it.hour
+                binding.tilDescription.text = it.description
             }
         }
 
@@ -74,15 +78,27 @@ class AddTaskActivity : AppCompatActivity() {
             finish()
         }
 
+        /**
+         * Verifica se é uma nova tarefa ou se é uma tarefa editada
+         * pelo 'id', uma vez que ao se editar uma tarefa, este 'id' é modificado
+         * isso evita a duplicação de uma tarefe que ao ser editada, pode se cadastrada
+         * como uma nova e não como uma atualizaçao (nova = 0) e (editção = size+1)
+         */
         binding.btnNewTask.setOnClickListener {
             val task = Task (
                 title = binding.tilTitle.text,
                 date = binding.tilDate.text,
                 hour = binding.tilHour.text,
+                description = binding.tilDescription.text,
                 id = intent.getIntExtra(TASK_ID, 0)
             )
             TaskDataSource.insertTask(task)
+            Log.e("TAG", "insertTask" + TaskDataSource.getList())
             setResult(Activity.RESULT_OK)
+            /**
+             * finaliza esta Activity ao confirmar o cadastro da tarefa na
+             * Activity TaskListAdapter, voltando para a Activity principal
+             */
             finish()
         }
     }
